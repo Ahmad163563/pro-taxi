@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:taxi/modules/Auth_view/Sign_in/Sign_in.dart';
 import 'package:taxi/modules/Auth_view/Sign_up/sign_up.dart';
 import 'package:taxi/modules/Auth_view/Splash_vIEW/splash_view.dart';
+import 'package:taxi/modules/Auth_view/forget_password/forget_password.dart';
 import 'package:taxi/modules/Auth_view/phone_verification/phone_verification.dart';
 import 'package:taxi/modules/Auth_view/registration/registration.dart';
 import 'package:taxi/modules/Auth_view/registration/registration2.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: themeController.theme,
-        home:  SignIn()//Registration2()//Registration()//PhoneVerification()//SignUp()   // SplashView(),
+        home: ForgetPassword() //SignIn()//Registration2()//Registration()//PhoneVerification()//SignUp()   // SplashView(),
       ),
     );
   }
