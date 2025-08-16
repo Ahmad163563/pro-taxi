@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../utills/app_constant/app_color.dart';
 import '../../../utills/components/text_widget.dart';
 import '../../../utills/components/textformfield.dart';
+import '../../../utills/components/yellow_button.dart';
 import '../../../utills/controller/theme_controller/theme.dart';
 
 class SignIn extends StatefulWidget {
@@ -57,7 +59,7 @@ class _SignInState extends State<SignIn> {
                    CustomText(
                     label: 'Sign in',
                     size: TextSize.large,
-                    weight: FontWeight.bold,
+                    weight: FontWeight.w400,
                     fontType: GoogleFonts.poppins,
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
@@ -66,7 +68,7 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 25,
               ),
               textFormField(hintText: 'Email or Phone Number'),
               SizedBox(
@@ -74,68 +76,20 @@ class _SignInState extends State<SignIn> {
               ),
               textFormField(hintText: 'Enter Your Password'),
               SizedBox(
-                height: 15,
-              ),
-              SizedBox(
-                height: 15,
+                height: 10,
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Transform.scale(
-                    scale: 0.9,
-                    child: Checkbox(
-                      value: isChecked,
-                      onChanged: (value) {
-                        setState(() {
-                          isChecked = value ?? false;
-                        });
-                      },
-                      shape: CircleBorder(),
-                      activeColor: Colors.green, // checked color
-                      checkColor:
-                      isDark ? Colors.white : Colors.white, // tick color
-                      side: BorderSide(
-                        color: isDark ? Colors.green : Colors.black, // border color
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: RichText(
-                      text: TextSpan(
-                        style: TextStyle(
-                          color: isDark ? Colors.white : Colors.black,
-                          fontSize: 14,
-                        ),
-                        children: [
-                          const TextSpan(text: "By signing up you agree to the "),
-                          TextSpan(
-                            text: "Terms of Service ",
-                            style: const TextStyle(
-                              color: Color(0xfff8c20d),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const TextSpan(text: "and "),
-                          TextSpan(
-                            text: "Privacy Policy",
-                            style: const TextStyle(
-                              color: Color(0xfff8c20d),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  Spacer(),
+                  GestureDetector(
+                      onTap: (){},
+                      child: CustomText(label: 'forget password', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: Colors.red,)),
                 ],
               ),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 35,),
               YellowButton(buttonText: 'Sign Up', ontap: () {}),
               SizedBox(
-                height: 25,
+                height: 35,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -182,9 +136,9 @@ class _SignInState extends State<SignIn> {
                         fontSize: 14,
                       ),
                       children: [
-                        const TextSpan(text: "Already have an account?"),
+                        const TextSpan(text: "Don't have an account?"),
                         TextSpan(
-                          text: "Sign in",
+                          text: " Sign up",
                           style: const TextStyle(
                             color: Color(0xfff8c20d),
                             fontWeight: FontWeight.bold,

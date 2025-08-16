@@ -171,7 +171,7 @@ class _SignUpState extends State<SignUp> {
           ),
           YellowButton(buttonText: 'Sign Up', ontap: () {}),
           SizedBox(
-            height: 25,
+            height: 35,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
