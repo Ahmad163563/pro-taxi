@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taxi/modules/Auth_view/Sign_in/Sign_in.dart';
 import 'package:taxi/modules/Auth_view/Sign_up/sign_up.dart';
 import 'package:taxi/modules/Auth_view/Splash_vIEW/splash_view.dart';
+import 'package:taxi/modules/Auth_view/phone_verification/phone_verification.dart';
+import 'package:taxi/modules/Auth_view/registration/registration.dart';
+import 'package:taxi/modules/Auth_view/registration/registration2.dart';
 import 'package:taxi/utills/controller/theme_controller/theme.dart';
 
 void main() {
@@ -21,7 +25,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: themeController.theme,
-        home:  SignUp()   // SplashView(),
+        home:  SignIn()//Registration2()//Registration()//PhoneVerification()//SignUp()   // SplashView(),
       ),
     );
   }
