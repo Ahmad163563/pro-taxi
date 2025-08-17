@@ -18,7 +18,6 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final ThemeController themeController = Get.find();
     return Scaffold(
       appBar: AppBar(
