@@ -4,9 +4,12 @@ import 'package:taxi/modules/Auth_view/Sign_in/Sign_in.dart';
 import 'package:taxi/modules/Auth_view/Sign_up/sign_up.dart';
 import 'package:taxi/modules/Auth_view/Splash_vIEW/splash_view.dart';
 import 'package:taxi/modules/Auth_view/forget_password/forget_password.dart';
+import 'package:taxi/modules/Auth_view/forget_password/forget_password_otp.dart';
 import 'package:taxi/modules/Auth_view/phone_verification/phone_verification.dart';
+import 'package:taxi/modules/Auth_view/phone_verification/verification_email.dart';
 import 'package:taxi/modules/Auth_view/registration/registration.dart';
 import 'package:taxi/modules/Auth_view/registration/registration2.dart';
+import 'package:taxi/modules/google_location/google_location.dart';
 import 'package:taxi/utills/controller/theme_controller/theme.dart';
 
 void main() {
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: themeController.theme,
-        home: ForgetPassword() //SignIn()//Registration2()//Registration()//PhoneVerification()//SignUp()   // SplashView(),
+        home: GoogleLocation()//ForgetPasswordOtp()//EmailVerification()//ForgetPassword() //SignIn()//Registration2()//Registration()//PhoneVerification()//SignUp()   // SplashView(),
       ),
     );
   }

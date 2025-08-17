@@ -4,9 +4,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taxi/utills/app_constant/app_color.dart';
 import 'package:taxi/utills/components/text_widget.dart';
+import 'package:taxi/utills/components/yellow_button.dart';
 
 import '../../../utills/controller/theme_controller/theme.dart';
-
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
@@ -18,6 +18,7 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final ThemeController themeController = Get.find();
     return Scaffold(
       appBar: AppBar(
@@ -49,15 +50,27 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 40),
-            CustomText(label: 'Forget Password', size: TextSize.extralarge, weight: FontWeight.w700, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,),
+            CustomText(
+              label: 'Forget Password',
+              size: TextSize.extralarge,
+              weight: FontWeight.w700,
+              fontType: GoogleFonts.poppins,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
             SizedBox(height: 10),
-             CustomText(label: 'Select which contact details should\n     we use to reset your password', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: AppColors.greyText,),
+            CustomText(
+              label:
+                  'Select which contact details should\n     we use to reset your password',
+              size: TextSize.small,
+              weight: FontWeight.w400,
+              fontType: GoogleFonts.poppins,
+              color: AppColors.greyText,
+            ),
             SizedBox(height: 40),
             GestureDetector(
-              onTap: () {
-              },
+              onTap: () {},
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -66,12 +79,28 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
                 child: Row(
                   children: const [
-                    Icon(Icons.sms, color: Colors.white, size: 30),
+                    CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.sms,
+                            color: Color(0xfff8c20d), size: 20)),
                     SizedBox(width: 15),
                     Column(
                       children: [
-                        CustomText(label: 'Via sms', size: TextSize.small, weight: FontWeight.w100, fontType: GoogleFonts.poppins),
-                        CustomText(label: '***** ***77', size: TextSize.small, weight: FontWeight.w100, fontType: GoogleFonts.poppins)
+                        CustomText(
+                          label: 'Via sms',
+                          size: TextSize.small,
+                          weight: FontWeight.w400,
+                          fontType: GoogleFonts.poppins,
+                          color: Colors.grey,
+                        ),
+                        CustomText(
+                          label: '***** ***77',
+                          size: TextSize.small,
+                          weight: FontWeight.w600,
+                          fontType: GoogleFonts.poppins,
+                          color: Colors.grey,
+                        )
                       ],
                     )
                   ],
@@ -88,20 +117,44 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.grey[800],
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.white24),
+                  border: Border.all(color: Colors.yellowAccent),
                 ),
                 child: Row(
-                  children: const [
-                    Icon(Icons.email, color: Colors.white, size: 30),
+                  children: [
+                    CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.email,
+                            color: Color(0xfff8c20d), size: 20)),
                     SizedBox(width: 15),
-                    Text("Via Email  ***@xyz.com",
-                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                    Column(
+                      children: [
+                        CustomText(
+                          label: 'Via Email',
+                          size: TextSize.small,
+                          weight: FontWeight.w400,
+                          fontType: GoogleFonts.poppins,
+                          color: Colors.grey,
+                        ),
+                        CustomText(
+                          label: '***** *** *** xyz@xyz.com',
+                          size: TextSize.small,
+                          weight: FontWeight.w600,
+                          fontType: GoogleFonts.poppins,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.grey
+                              : Colors.black,
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),
             ),
+            SizedBox(height: 120,),
+            YellowButton(buttonText: 'Continue', ontap: (){})
           ],
         ),
       ),
