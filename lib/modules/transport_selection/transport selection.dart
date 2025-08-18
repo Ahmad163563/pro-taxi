@@ -10,8 +10,8 @@ class _TransportSelectionScreenState extends State<TransportSelection> {
   int? selectedIndex; // null means nothing selected
 
   final List<Map<String, String>> transports = [
-    {"title": "Car", "image": "https://cdn-icons-png.flaticon.com/512/743/743922.png"},
-    {"title": "Bike", "image": "https://cdn-icons-png.flaticon.com/512/3076/3076587.png"},
+    {"title": "Car", "image": "https://cdn-icons-png.flaticon.com/512/2330/2330453.png"},
+    {"title": "Bike", "image": "https://cdn-icons-png.flaticon.com/512/6750/6750554.png"},
     {"title": "Cycle", "image": "https://cdn-icons-png.flaticon.com/512/888/888064.png"},
     {"title": "Taxi", "image": "https://cdn-icons-png.flaticon.com/512/296/296216.png"},
   ];
