@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/utills/components/text_widget.dart';
+
+import '../../utills/controller/theme_controller/theme.dart';
 
 class TransportSelection extends StatefulWidget {
   @override
@@ -12,26 +18,47 @@ class _TransportSelectionScreenState extends State<TransportSelection> {
   final List<Map<String, String>> transports = [
     {"title": "Car", "image": "https://cdn-icons-png.flaticon.com/512/2330/2330453.png"},
     {"title": "Bike", "image": "https://cdn-icons-png.flaticon.com/512/6750/6750554.png"},
-    {"title": "Cycle", "image": "https://cdn-icons-png.flaticon.com/512/888/888064.png"},
-    {"title": "Taxi", "image": "https://cdn-icons-png.flaticon.com/512/296/296216.png"},
+    {"title": "Cycle", "image": "assets/bicycle.png"},
+    {"title": "Taxi", "image": "assets/taxi.png"},
   ];
 
   @override
   Widget build(BuildContext context) {
+    final ThemeController themeController = Get.find();
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.black
+          : Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text("Select transport"),
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black
+            : Colors.white,
+        title: CustomText(label: 'Select Transport', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : Colors.black,),
+        centerTitle: true,
+        actions: [
+          Obx(() => IconButton(
+              onPressed: () {
+                themeController.toggleTheme();
+              },
+              icon: Icon(
+                themeController.isDark.value == true
+                    ? Icons.light_mode_outlined
+                    : Icons.dark_mode_outlined,
+              )))
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 20),
-          const Text(
+           Text(
             "Select your transport",
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -58,10 +85,12 @@ class _TransportSelectionScreenState extends State<TransportSelection> {
                     decoration: BoxDecoration(
                       color: isSelected
                           ? Colors.yellow.shade200 // selected -> light yellow
-                          : Colors.grey.shade900, // default -> light black
+                          : Colors.black54, // default -> light black
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: Colors.orange,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.orange
+                            : Colors.orangeAccent,
                         width: 1.5,
                       ),
                     ),
