@@ -11,6 +11,7 @@ import 'package:taxi/modules/Auth_view/registration/registration.dart';
 import 'package:taxi/modules/Auth_view/registration/registration2.dart';
 import 'package:taxi/modules/google_location/google_location.dart';
 import 'package:taxi/modules/transport_selection/available_transport2.dart';
+import 'package:taxi/modules/transport_selection/car_details3.dart';
 import 'package:taxi/modules/transport_selection/transport%20selection.dart';
 import 'package:taxi/utills/controller/theme_controller/theme.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: themeController.theme,
-        home:AvailableTransport2()// TransportSelection()//GoogleLocation()//ForgetPasswordOtp()//EmailVerification()//ForgetPassword() //SignIn()//Registration2()//Registration()//PhoneVerification()//SignUp()   // SplashView(),
+        home:CarDetailsScreen()//AvailableTransport2()// TransportSelection()//GoogleLocation()//ForgetPasswordOtp()//EmailVerification()//ForgetPassword() //SignIn()//Registration2()//Registration()//PhoneVerification()//SignUp()   // SplashView(),
       ),
     );
   }
