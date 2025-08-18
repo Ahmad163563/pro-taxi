@@ -29,6 +29,7 @@ class _LState extends State<GoogleLocation> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final ThemeController themeController = Get.find();
     return Scaffold(
       extendBodyBehindAppBar: true, // 👈 important
@@ -86,15 +87,16 @@ class _LState extends State<GoogleLocation> {
                   ),
                 ),
               ),
-              Obx(() => IconButton(
-                  onPressed: () {
-                    themeController.toggleTheme();
-                  },
-                  icon: Icon(
-                    themeController.isDark.value == true
-                        ? Icons.light_mode_outlined
-                        : Icons.dark_mode_outlined,
-                  )))
+              Obx(() =>
+                  IconButton(
+                      onPressed: () {
+                        themeController.toggleTheme();
+                      },
+                      icon: Icon(
+                        themeController.isDark.value == true
+                            ? Icons.light_mode_outlined
+                            : Icons.dark_mode_outlined,
+                      )))
             ],
           )
         ],
@@ -170,7 +172,9 @@ class _LState extends State<GoogleLocation> {
                       width: 420,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).brightness == Brightness.dark
+                        color: Theme
+                            .of(context)
+                            .brightness == Brightness.dark
                             ? Colors.black54
                             : Colors.white,
                         borderRadius: BorderRadius.circular(16),
@@ -189,8 +193,10 @@ class _LState extends State<GoogleLocation> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 8),
                             decoration: BoxDecoration(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
+                              color: Theme
+                                  .of(context)
+                                  .brightness ==
+                                  Brightness.dark
                                   ? Colors.black54
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(12),
@@ -198,7 +204,7 @@ class _LState extends State<GoogleLocation> {
                             ),
                             child: Row(
                               children: [
-                                const Icon(Icons.search, color: Colors.grey),
+                                IconButton(onPressed:() => openAddressBottomSheet(context), icon: Icon(Icons.search,color: Colors.grey,)),
                                 const SizedBox(width: 8),
                                 const Expanded(
                                   child: TextField(
@@ -259,7 +265,8 @@ class _LState extends State<GoogleLocation> {
               icon: Icon(Icons.favorite), label: "Favorites"),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_balance_wallet), label: "Wallet"),
-          BottomNavigationBarItem(icon: Icon(Icons.local_offer),label: 'Offer'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.local_offer), label: 'Offer'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
@@ -293,4 +300,218 @@ class _LState extends State<GoogleLocation> {
       ),
     );
   }
+}
+
+
+
+void openAddressBottomSheet(BuildContext context) {
+  final nameController = TextEditingController();
+  final addressController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true, // keyboard ke liye
+    backgroundColor: Colors.transparent, // rounded corners dikhane ke liye
+    builder: (ctx) {
+      return DraggableScrollableSheet(
+        initialChildSize: 0.7,
+        minChildSize: 0.5,
+        maxChildSize: 0.95,
+        expand: false,
+        builder: (context, scrollController) {
+          return Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            ),
+            child: SafeArea(
+              top: false,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  // keyboard overlap handle
+                  bottom: MediaQuery
+                      .of(context)
+                      .viewInsets
+                      .bottom + 12,
+                  top: 12,
+                ),
+                child: Form(
+                  key: formKey,
+                  child: ListView(
+                    controller: scrollController,
+                    children: [
+                      // --- Top handle (optional) ---
+                      Center(
+                        child: Container(
+                          width: 40, height: 4,
+                          margin: const EdgeInsets.only(bottom: 12),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+
+                      // --- Top Text: Select Address ---
+                      Row(
+                          children: [
+                            Icon(Icons.location_on_outlined, color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey
+                          : Colors.black87,),
+                            SizedBox(width: 8),
+                            CustomText(label: 'Select Address',
+                                size: TextSize.large,
+                                weight: FontWeight.w700,
+                                fontType: GoogleFonts.poppins,
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.grey
+                                  : Colors.black87,)
+                          ]
+                      ),
+                  const SizedBox(height: 12),
+                  const Divider(),
+
+                  // --- TextFormField #1 ---
+                  const SizedBox(height: 12),
+                  TextFormField(
+                    controller: nameController,
+                    textInputAction: TextInputAction.next,
+                    decoration: const InputDecoration(
+                      labelText: 'Form',
+                      prefixIcon: Icon(Icons.my_location),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (v) =>
+                    (v == null || v
+                        .trim()
+                        .isEmpty)
+                        ? 'To' : null,
+                  ),
+
+                  // --- TextFormField #2 ---
+                  const SizedBox(height: 12),
+                  TextFormField(
+                    controller: addressController,
+                    maxLines: 1,
+                    decoration: const InputDecoration(
+                      hintText: 'To',
+                      prefixIcon: Icon(Icons.location_on_outlined),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (v) =>
+                    (v == null || v
+                        .trim()
+                        .isEmpty)
+                        ? 'Enter your address' : null,
+                  ),
+
+                  // Actions row (optional)
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          icon: const Icon(Icons.my_location_outlined),
+                          label: const Text('Use current location'),
+                          onPressed: () {},
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: FilledButton.icon(
+                          icon: const Icon(Icons.save_outlined),
+                          label: const Text('Save'),
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              Navigator.pop(context, {
+                                'name': nameController.text.trim(),
+                                'address': addressController.text.trim(),
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 12),
+                  Divider(),
+
+                  // --- Text (below second divider) ---
+                  SizedBox(height: 8),
+                  CustomText(label: 'Recent Place',
+                      size: TextSize.medium,
+                      weight: FontWeight.w600,
+                      fontType: GoogleFonts.poppins),
+
+                  SizedBox(height: 8),
+                  Card(
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        child: Icon(Icons.location_on),
+                      ),
+                      title: CustomText(label: 'Office',
+                          size: TextSize.small,
+                          weight: FontWeight.w400,
+                          fontType: GoogleFonts.poppins),
+                      subtitle: const Text(
+                          '2972 Westhiemer Rd. Santa Ana,85488'),
+                      trailing: CustomText(label: '2.7Km',
+                          size: TextSize.small,
+                          weight: FontWeight.w400,
+                          fontType: GoogleFonts.poppins),
+                      onTap: () {
+                        Navigator.pop(context, {
+                        });
+                      },
+                    ),
+                  ),
+
+                  Card(
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        child: Icon(Icons.location_on),
+                      ),
+                      title: const Text('Coffee Shop'),
+                      subtitle: const Text('1908 thomridge ,lif'),
+                      trailing: CustomText(label: '1.1Km',
+                          size: TextSize.small,
+                          weight: FontWeight.w400,
+                          fontType: GoogleFonts.poppins),
+                      onTap: () {
+                        Navigator.pop(context, {
+                        });
+                      },
+                    ),
+                  ),
+                  Card(
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        child: Icon(Icons.location_on),
+                      ),
+                      title: const Text('Shopping center'),
+                      subtitle: const Text('4148, perker Rd, allentown'),
+                      trailing: CustomText(label: '4.9Km',
+                          size: TextSize.small,
+                          weight: FontWeight.w400,
+                          fontType: GoogleFonts.poppins),
+                      onTap: () {
+                        Navigator.pop(context, {
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+              ])
+                ),
+              ),
+            ),
+          );
+        }
+      );
+    },
+  );
 }
