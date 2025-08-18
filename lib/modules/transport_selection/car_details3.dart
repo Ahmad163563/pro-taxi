@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../utills/controller/theme_controller/theme.dart';
 
 class CarDetailsScreen extends StatefulWidget {
   const CarDetailsScreen({super.key});
@@ -13,23 +17,33 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeController themeController = Get.find();
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: Text(
-          "Car Details",
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
+          'Back',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w100,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.grey
+                : Colors.black,
           ),
         ),
-        backgroundColor: Colors.white,
-        elevation: 0,
+        actions: [
+          Obx(() => IconButton(
+              onPressed: () {
+                themeController.toggleTheme();
+              },
+              icon: Icon(
+                themeController.isDark.value == true
+                    ? Icons.light_mode_outlined
+                    : Icons.dark_mode_outlined,
+              )))
+        ],
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.black
+          : Colors.white,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -179,7 +193,9 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
       width: 80,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black
+            : Colors.white,
         borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Color(0xfff8c20d))
       ),
@@ -188,12 +204,16 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
           Icon(icon, size: 28, color: Colors.orange),
           const SizedBox(height: 6),
           Text(title,
-              style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey)),
+              style: GoogleFonts.poppins(fontSize: 12, color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,)),
           Text(value,
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
-                  color: Colors.black)),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,)),
         ],
       ),
     );
@@ -204,7 +224,9 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
       margin: const EdgeInsets.symmetric(vertical: 6),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black
+            : Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Color(0xfff8c20d))
       ),
@@ -212,12 +234,16 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title,
-              style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey)),
+              style: GoogleFonts.poppins(fontSize: 14, color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,)),
           Text(value,
               style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black)),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,)),
         ],
       ),
     );
