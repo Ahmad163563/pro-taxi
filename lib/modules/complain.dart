@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taxi/utills/components/text_widget.dart';
 import 'package:taxi/utills/components/yellow_button.dart';
+
+import '../utills/controller/theme_controller/theme.dart';
 
 class ComplaintScreen extends StatefulWidget {
   const ComplaintScreen({Key? key}) : super(key: key);
@@ -41,32 +45,24 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                 const Icon(Icons.check_circle,
                     color: Colors.green, size: 80),
                 const SizedBox(height: 15),
-                const Text(
+                 Text(
                   "Send successful",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   "Your complaint has been sent successfully",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, color: Colors.black54),
+                  style: TextStyle(fontSize: 14, color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey
+                      : Colors.black,),
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    minimumSize: const Size(double.infinity, 48),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop(); // close dialog
-                    Navigator.of(context).pop(); // back home
-                  },
-                  child: const Text("Back Home",
-                      style: TextStyle(color: Colors.white)),
-                ),
+                YellowButton(buttonText: 'Back home', ontap: (){
+                  Navigator.of(context).pop(); // back home
+                })
               ],
             ),
           ),
@@ -77,6 +73,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeController themeController = Get.find();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -90,7 +87,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                   CupertinoButton(
                     padding: EdgeInsets.zero,
                     onPressed: () => Navigator.pop(context),
-                    child: const Row(
+                    child: Row(
                       children: [
                         SizedBox(width: 4),
                         CustomText(label: 'Back', size:TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
@@ -104,7 +101,15 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                       ? Colors.grey
                       : Colors.black,),
                   const Spacer(),
-                  const SizedBox(width: 60), // balance row
+                  Obx(() => IconButton(
+                      onPressed: () {
+                        themeController.toggleTheme();
+                      },
+                      icon: Icon(
+                        themeController.isDark.value == true
+                            ? Icons.light_mode_outlined
+                            : Icons.dark_mode_outlined,
+                      ))),
                 ],
               ),
               const SizedBox(height: 20),
