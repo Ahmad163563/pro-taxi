@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/drawer/drawer.dart';
+import 'package:taxi/modules/faviorite_screen%5D/favorite_screen.dart';
+import 'package:taxi/modules/transport_selection/transport%20selection.dart';
+import 'package:taxi/modules/wallet_screens/walllet_Screen.dart';
 import 'package:taxi/utills/app_constant/app_color.dart';
 import 'package:taxi/utills/components/text_widget.dart';
 
@@ -19,12 +23,11 @@ class _LState extends State<GoogleLocation> {
 
   final List<Widget> _screens = [
     Center(child: Text(" Home Screen")),
-    Center(child: Text(" Favorites")),
-    Center(child: Text(" Wallet")),
+    Center(child: FavoriteScreen()),
+    Center(child: WallletScreen()),
     Center(child: Text(" Profile")),
     Center(child: Text(" offer")),
   ];
-
   String selectedOption = "Transport";
 
   @override
@@ -36,21 +39,21 @@ class _LState extends State<GoogleLocation> {
       appBar: AppBar(
         backgroundColor: Colors.transparent, // 👈 transparent appbar
         elevation: 0,
-        title: GestureDetector(
-          onTap: () {},
-          child: Container(
-            height: 25,
-            width: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
-              color: Color(0xfff8c20d),
-            ),
-            child: Icon(
-              Icons.menu,
-              color: AppColors.blackColor,
-            ),
-          ),
-        ),
+        // title: GestureDetector(
+        //   onTap: () {},
+        //   child: Container(
+        //     height: 25,
+        //     width: 30,
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(2),
+        //       color: Color(0xfff8c20d),
+        //     ),
+        //     child: Icon(
+        //       Icons.menu,
+        //       color: AppColors.blackColor,
+        //     ),
+        //   ),
+        // ),
         actions: [
           Row(
             children: [
@@ -101,6 +104,7 @@ class _LState extends State<GoogleLocation> {
           )
         ],
       ),
+      drawer: const ProfileDrawer(),
       body: IndexedStack(
         index: _currentIndex,
         children: [
@@ -139,14 +143,17 @@ class _LState extends State<GoogleLocation> {
                     Row(
                       children: [
                         const SizedBox(width: 12),
-                        Container(
-                          height: 40,
-                          width: 90,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: const Color(0xfff8c20d),
+                        GestureDetector(
+                          onTap: (){},
+                          child: Container(
+                            height: 40,
+                            width: 90,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: const Color(0xfff8c20d),
+                            ),
+                            child: const Center(child: Text("Rental")),
                           ),
-                          child: const Center(child: Text("Rental")),
                         ),
                         const Spacer(),
                         Padding(
@@ -238,11 +245,10 @@ class _LState extends State<GoogleLocation> {
             ],
           ),
 
-          // Screen 2
-          Center(child: Text("❤️ Favorites")),
+          Center(child: FavoriteScreen()),
 
           // Screen 3
-          Center(child: Text("💳 Wallet")),
+          Center(child: WallletScreen()),
 
           // Screen 4
           Center(child: Text("👤 Profile")),
@@ -262,7 +268,7 @@ class _LState extends State<GoogleLocation> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: "Favorites"),
+              icon: Icon(Icons.favorite), label: "Favorites",),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_balance_wallet), label: "Wallet"),
           BottomNavigationBarItem(
@@ -425,12 +431,7 @@ void openAddressBottomSheet(BuildContext context) {
                           icon: const Icon(Icons.save_outlined),
                           label: const Text('Save'),
                           onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              Navigator.pop(context, {
-                                'name': nameController.text.trim(),
-                                'address': addressController.text.trim(),
-                              });
-                            }
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>TransportSelection()));
                           },
                         ),
                       ),

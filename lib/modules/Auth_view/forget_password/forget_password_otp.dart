@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/google_location/google_location.dart';
 import 'package:taxi/utills/app_constant/app_color.dart';
 import 'package:taxi/utills/components/yellow_button.dart';
 
@@ -144,10 +146,15 @@ class _SignupView3State extends State<ForgetPasswordOtp> {
                             color: Color(0xfff8c20d),
                             fontWeight: FontWeight.bold,
                           ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                            },
                         ),
                       ])),
               SizedBox(height: 250,),
-              YellowButton(buttonText: 'Verify', ontap: (){})
+              YellowButton(buttonText: 'Verify', ontap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>GoogleLocation()));
+              })
             ],
           ),
         ),

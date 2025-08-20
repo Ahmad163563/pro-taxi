@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/Auth_view/phone_verification/verification_email.dart';
 import 'package:taxi/utills/app_constant/app_color.dart';
 import 'package:taxi/utills/components/text_widget.dart';
 import 'package:taxi/utills/components/yellow_button.dart';
@@ -113,47 +114,52 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               onTap: () {
                 // handle Email option
               },
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.yellowAccent),
-                ),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                        radius: 20,
-                        backgroundColor: Colors.white,
-                        child: Icon(Icons.email,
-                            color: Color(0xfff8c20d), size: 20)),
-                    SizedBox(width: 15),
-                    Column(
-                      children: [
-                        CustomText(
-                          label: 'Via Email',
-                          size: TextSize.small,
-                          weight: FontWeight.w400,
-                          fontType: GoogleFonts.poppins,
-                          color: Colors.grey,
-                        ),
-                        CustomText(
-                          label: '***** *** *** xyz@xyz.com',
-                          size: TextSize.small,
-                          weight: FontWeight.w600,
-                          fontType: GoogleFonts.poppins,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.grey
-                              : Colors.black,
-                        )
-                      ],
-                    )
-                  ],
+              child: GestureDetector(
+                onTap: (){},
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.yellowAccent),
+                  ),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Colors.white,
+                          child: Icon(Icons.email,
+                              color: Color(0xfff8c20d), size: 20)),
+                      SizedBox(width: 15),
+                      Column(
+                        children: [
+                          CustomText(
+                            label: 'Via Email',
+                            size: TextSize.small,
+                            weight: FontWeight.w400,
+                            fontType: GoogleFonts.poppins,
+                            color: Colors.grey,
+                          ),
+                          CustomText(
+                            label: '***** *** *** xyz@xyz.com',
+                            size: TextSize.small,
+                            weight: FontWeight.w600,
+                            fontType: GoogleFonts.poppins,
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey
+                                : Colors.black,
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 120,),
-            YellowButton(buttonText: 'Continue', ontap: (){})
+            SizedBox(height: 180,),
+            YellowButton(buttonText: 'Continue', ontap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>EmailVerification()));
+            })
           ],
         ),
       ),

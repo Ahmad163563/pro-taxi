@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/Auth_view/forget_password/forget_password.dart';
 
 import '../../../utills/app_constant/app_color.dart';
 import '../../../utills/components/text_widget.dart';
@@ -28,7 +29,7 @@ class _SignInState extends State<SignIn> {
             'Back',
             style: TextStyle(
               fontSize: 15,
-              fontWeight: FontWeight.w100,
+              fontWeight: FontWeight.w400,
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
                   : Colors.black,
@@ -47,105 +48,109 @@ class _SignInState extends State<SignIn> {
           ],
         ),
         body: SafeArea(
-            child: Column(children: [
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 15,
-                  ),
-                   CustomText(
-                    label: 'Sign in',
-                    size: TextSize.large,
-                    weight: FontWeight.w400,
-                    fontType: GoogleFonts.poppins,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              textFormField(hintText: 'Email or Phone Number'),
-              SizedBox(
-                height: 15,
-              ),
-              textFormField(hintText: 'Enter Your Password'),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Spacer(),
-                  GestureDetector(
-                      onTap: (){},
-                      child: CustomText(label: 'forget password', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: Colors.red,)),
-                ],
-              ),
-              SizedBox(height: 35,),
-              YellowButton(buttonText: 'Sign Up', ontap: () {}),
-              SizedBox(
-                height: 35,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: AppColors.greyText)),
-                    child: Image.asset('assets/gmail.webp'),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: AppColors.greyText)),
-                    child: Image.asset('assets/fb.webp'),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: AppColors.greyText)),
-                    child: Image.asset('assets/appple.png'),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              RichText(
-                  text: TextSpan(
-                      style: TextStyle(
-                        color: isDark ? Colors.white : Colors.black,
-                        fontSize: 14,
-                      ),
-                      children: [
-                        const TextSpan(text: "Don't have an account?"),
-                        TextSpan(
-                          text: " Sign up",
-                          style: const TextStyle(
-                            color: Color(0xfff8c20d),
-                            fontWeight: FontWeight.bold,
-                          ),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 15,
+                    ),
+                     CustomText(
+                      label: 'Sign in',
+                      size: TextSize.large,
+                      weight: FontWeight.w400,
+                      fontType: GoogleFonts.poppins,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                textFormField(hintText: 'Email or Phone Number'),
+                SizedBox(
+                  height: 15,
+                ),
+                textFormField(hintText: 'Enter Your Password'),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Spacer(),
+                    GestureDetector(
+                        onTap: (){},
+                        child: CustomText(label: 'forget password', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: Colors.red,)),
+                  ],
+                ),
+                SizedBox(height: 35,),
+                YellowButton(buttonText: 'Sign Up', ontap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgetPassword()));
+                }),
+                SizedBox(
+                  height: 35,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: AppColors.greyText)),
+                      child: Image.asset('assets/gmail.webp'),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: AppColors.greyText)),
+                      child: Image.asset('assets/fb.webp'),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: AppColors.greyText)),
+                      child: Image.asset('assets/appple.png'),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                RichText(
+                    text: TextSpan(
+                        style: TextStyle(
+                          color: isDark ? Colors.white : Colors.black,
+                          fontSize: 14,
                         ),
-                      ]))
-            ]))
+                        children: [
+                          const TextSpan(text: "Don't have an account?"),
+                          TextSpan(
+                            text: " Sign up",
+                            style: const TextStyle(
+                              color: Color(0xfff8c20d),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ]))
+              ]),
+            ))
     );
   }
 }

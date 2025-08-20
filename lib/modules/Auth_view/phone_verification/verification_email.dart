@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/Auth_view/forget_password/forget_password_otp.dart';
 import 'package:taxi/utills/components/textformfield.dart';
 import 'package:taxi/utills/components/yellow_button.dart';
 
@@ -44,28 +45,34 @@ class _EmailVerificationState extends State<EmailVerification> {
               )))
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 25,),
-           Row(
-             children: [
-               SizedBox(width: 5,),
-               CustomText(
-                label: '  Verification email or phone\n  number',
-                size: TextSize.extralarge,
-                weight: FontWeight.w500,
-                fontType: GoogleFonts.poppins,
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                         ),
-             ],
-           ),
-          SizedBox(height: 30,),
-          textFormField(hintText: 'Email or phone number'),
-          SizedBox(height: 230,),
-          YellowButton(buttonText: 'Send OTP', ontap: (){})
-        ],
+      body: SingleChildScrollView(
+        child:  SafeArea(
+          child: Column(
+            children: [
+              SizedBox(height: 25,),
+               Row(
+                 children: [
+                   SizedBox(width: 5,),
+                   CustomText(
+                    label: '  Verification email or phone\n  number',
+                    size: TextSize.extralarge,
+                    weight: FontWeight.w500,
+                    fontType: GoogleFonts.poppins,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                             ),
+                 ],
+               ),
+              SizedBox(height: 30,),
+              textFormField(hintText: 'Email or phone number'),
+              SizedBox(height: 350,),
+              YellowButton(buttonText: 'Send OTP', ontap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgetPasswordOtp()));
+              })
+            ],
+          ),
+        ),
       ),
     );
   }

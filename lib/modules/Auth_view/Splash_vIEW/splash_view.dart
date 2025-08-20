@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/Auth_view/Sign_up/sign_up.dart';
 import 'package:taxi/utills/components/yellow_button.dart';
 import 'package:taxi/utills/controller/theme_controller/theme.dart';
 
@@ -67,7 +68,9 @@ class _SplashViewState extends State<SplashView> {
                     SizedBox(
             height: 100,
                     ),
-                    YellowButton(buttonText: 'Create an account', ontap: () {}),
+                    YellowButton(buttonText: 'Create an account', ontap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp()));
+                    }),
                     SizedBox(
             height: 10,
                     ),

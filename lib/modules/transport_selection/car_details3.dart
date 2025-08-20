@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/transport_selection/car_booking.dart';
 
 import '../../utills/controller/theme_controller/theme.dart';
 
@@ -124,9 +125,9 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedOption = "Ride Now";
-                      });
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CarBookingScreen()));// setState(() {
+                      //   selectedOption = "Ride Now";
+                      // });
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 14),

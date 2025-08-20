@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/transport_selection/car_details3.dart';
 import 'package:taxi/utills/components/text_widget.dart';
 
 import '../../utills/controller/theme_controller/theme.dart';
@@ -222,14 +223,19 @@ class _CarListScreenState extends State<AvailableTransport2> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Center(
-                                    child: Text(
-                                      "Ride Now",
-                                      style: TextStyle(
-                                        color: selected == "Ride Now"
-                                            ? Colors.black
-                                            : Colors.grey.shade900,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
+                                    child: GestureDetector(
+                                    onTap:(){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>CarDetailsScreen()));
+                                    },
+                                      child: Text(
+                                        "Ride Now",
+                                        style: TextStyle(
+                                          color: selected == "Ride Now"
+                                              ? Colors.black
+                                              : Colors.grey.shade900,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),

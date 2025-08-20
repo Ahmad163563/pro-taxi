@@ -4,6 +4,8 @@ import 'package:taxi/utills/app_constant/app_color.dart';
 import 'package:taxi/utills/components/text_widget.dart';
 import 'package:taxi/utills/components/white-text.dart';
 
+import '../onboarding_Screen/onboarding-screen1.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -13,19 +15,44 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  void initState() {
+    super.initState();
+
+    // 3 second baad dusri screen par navigate hoga
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const Onboardingscreen1()),
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.orange,
-      body: SafeArea(child: Column(
-        children: [
-          SizedBox(height: 150,),
-          Center(
-            child: Image.asset('assets/splash_screen.jpg',height: 100,width: 250,),
-          ),
-          SizedBox(height: 10,),
-          CustomText(label: 'Easy Rider', size: TextSize.extralarge, weight: FontWeight.bold, fontType: GoogleFonts.poppins,color: AppColors.whiteColor,)
-        ],
-      )),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 150),
+            Center(
+              child: Image.asset(
+                'assets/splash_screen.jpg',
+                height: 100,
+                width: 250,
+              ),
+            ),
+            const SizedBox(height: 30),
+            CustomText(
+              label: 'Easy Rider',
+              size: TextSize.extralarge,
+              weight: FontWeight.bold,
+              fontType: GoogleFonts.poppins,
+              color: AppColors.whiteColor,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

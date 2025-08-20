@@ -9,12 +9,25 @@ import 'package:taxi/modules/Auth_view/phone_verification/phone_verification.dar
 import 'package:taxi/modules/Auth_view/phone_verification/verification_email.dart';
 import 'package:taxi/modules/Auth_view/registration/registration.dart';
 import 'package:taxi/modules/Auth_view/registration/registration2.dart';
+import 'package:taxi/modules/Chat_Screen/Chat_Screen.dart';
+import 'package:taxi/modules/Discount_Screen/Discount_Screens.dart';
+import 'package:taxi/modules/addresss/addresss.dart';
+import 'package:taxi/modules/complain.dart';
+import 'package:taxi/modules/drawer/drawer.dart';
+import 'package:taxi/modules/faviorite_screen%5D/favorite_screen.dart';
 import 'package:taxi/modules/google_location/google_location.dart';
+import 'package:taxi/modules/history_status/history_status.dart';
+import 'package:taxi/modules/profile_screen/profile_screen.dart';
+import 'package:taxi/modules/splash_screen/splash_screen.dart';
+import 'package:taxi/modules/transport_selection/Payment_Method.dart';
 import 'package:taxi/modules/transport_selection/available_transport2.dart';
 import 'package:taxi/modules/transport_selection/cancel_order.dart';
 import 'package:taxi/modules/transport_selection/car_booking.dart';
 import 'package:taxi/modules/transport_selection/car_details3.dart';
+import 'package:taxi/modules/transport_selection/confirm_ride.dart';
+import 'package:taxi/modules/transport_selection/payment_method2.dart';
 import 'package:taxi/modules/transport_selection/transport%20selection.dart';
+import 'package:taxi/modules/wallet_screens/walllet_Screen.dart';
 import 'package:taxi/utills/controller/theme_controller/theme.dart';
 
 void main() {
@@ -34,7 +47,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: themeController.theme,
-        home:CancelOrderScreen()//CarBookingScreen()//CarDetailsScreen()//AvailableTransport2()// TransportSelection()//GoogleLocation()//ForgetPasswordOtp()//EmailVerification()//ForgetPassword() //SignIn()//Registration2()//Registration()//PhoneVerification()//SignUp()   // SplashView(),
+        home:ComplaintScreen()//HistoryScreen()//Addresss()//ProfileScreen()//GoogleLocation()//ChatScreen()//ConfirmRide()//PaymentSuccess()//DiscountScreen()//GoogleLocation()//WallletScreen()//FavoriteScreen()//PaymentSuccess()//ChatDemo()//ConfirmRide()//PaymentMethod()//SplashScreen()//CancelOrderScreen()//CarBookingScreen()//CarDetailsScreen()//AvailableTransport2()// TransportSelection()//GoogleLocation()//ForgetPasswordOtp()//EmailVerification()//ForgetPassword() //SignIn()//Registration2()//Registration()//PhoneVerification()//SignUp()   // SplashView(),
       ),
     );
   }

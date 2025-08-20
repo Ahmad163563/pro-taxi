@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/Auth_view/Splash_vIEW/splash_view.dart';
 import 'package:taxi/utills/app_constant/app_color.dart';
 import 'package:taxi/utills/components/text_widget.dart';
 
@@ -18,7 +19,12 @@ class _Onboardingscreen1State extends State<Onboardingscreen1> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8),
-            child: CustomText(label: 'Skip', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: AppColors.blackColor,),
+            child: GestureDetector(
+                onTap: (){},
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: CustomText(label: 'Skip', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: AppColors.blackColor,),
+                )),
           )
         ],
       ),
@@ -37,7 +43,9 @@ class _Onboardingscreen1State extends State<Onboardingscreen1> {
           CircleAvatar(
             radius: 35,
             backgroundColor: AppColors.orange,
-            child: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward,color: AppColors.blackColor,)),
+            child: IconButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SplashView()));
+            }, icon: Icon(Icons.arrow_forward,color: AppColors.blackColor,)),
           )
         ],
       )),

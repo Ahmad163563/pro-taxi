@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:taxi/modules/Auth_view/Sign_in/Sign_in.dart';
 import 'package:taxi/utills/app_constant/app_color.dart';
 import 'package:taxi/utills/components/text_widget.dart';
 import 'package:taxi/utills/components/textformfield.dart';
@@ -147,7 +148,7 @@ class _Scenario6State extends State<Registration2> {
               DropdownButtonFormField<String>(
                   value: selectedCity,
                   decoration: InputDecoration(
-                    hintText: 'Gender',
+                    hintText: 'Cityr',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -177,7 +178,7 @@ class _Scenario6State extends State<Registration2> {
               DropdownButtonFormField<String>(
                   value: selectedDistrict,
                   decoration: InputDecoration(
-                    hintText: 'Gender',
+                    hintText: 'District',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -236,7 +237,9 @@ class _Scenario6State extends State<Registration2> {
                         border: Border.all(color: Color(0xfff8c20d))),
                     child: Center(
                         child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignIn()));
+                      },
                       child: CustomText(
                         label: 'Save',
                         size: TextSize.small,

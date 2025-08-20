@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/transport_selection/available_transport2.dart';
 import 'package:taxi/utills/components/text_widget.dart';
 
 import '../../utills/controller/theme_controller/theme.dart';
@@ -77,9 +78,9 @@ class _TransportSelectionScreenState extends State<TransportSelection> {
                 final isSelected = selectedIndex == index;
                 return GestureDetector(
                   onTap: () {
-                    setState(() {
-                      selectedIndex = index;
-                    });
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AvailableTransport2()));// setState(() {
+                    //   selectedIndex = index;
+                    // });
                   },
                   child: Container(
                     decoration: BoxDecoration(

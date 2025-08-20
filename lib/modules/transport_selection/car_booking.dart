@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi/modules/transport_selection/cancel_order.dart';
 import 'package:taxi/utills/components/text_widget.dart';
 import 'package:taxi/utills/components/textformfield.dart';
 import 'package:taxi/utills/components/yellow_button.dart';
@@ -89,16 +90,15 @@ class _CarBookingScreenState extends State<CarBookingScreen> {
                 ],
               ),
               SizedBox(height: 16),
-
-              // Car Info Container
               Container(
+                width: double.infinity, // ✅ Mobile ki full width le lega
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.black
-                        : Colors.white,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.black
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Color(0xfff8c20d))
+                  border: Border.all(color: Color(0xfff8c20d)),
                 ),
                 child: Row(
                   children: [
@@ -106,16 +106,28 @@ class _CarBookingScreenState extends State<CarBookingScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomText(label: 'Mushtang shelby GT', size: TextSize.medium, weight: FontWeight.w600, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,),
+                          CustomText(
+                            label: 'Mushtang shelby GT',
+                            size: TextSize.medium,
+                            weight: FontWeight.w600,
+                            fontType: GoogleFonts.poppins,
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                           SizedBox(height: 4),
                           Row(
                             children: [
                               Icon(Icons.star, color: Colors.orange, size: 18),
-                              CustomText(label: '4.9 (531 reviews) ', size: TextSize.small, weight: FontWeight.w200, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
-                                  ? Colors.grey
-                                  : Colors.black,)
+                              CustomText(
+                                label: '4.9 (531 reviews) ',
+                                size: TextSize.small,
+                                weight: FontWeight.w200,
+                                fontType: GoogleFonts.poppins,
+                                color: Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.grey
+                                    : Colors.black,
+                              )
                             ],
                           ),
                         ],
@@ -123,7 +135,7 @@ class _CarBookingScreenState extends State<CarBookingScreen> {
                     ),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
+                      child: Image.asset( // ✅ local asset ke liye Image.asset use karein
                         "assets/mustang.png",
                         width: 100,
                         height: 60,
@@ -133,6 +145,7 @@ class _CarBookingScreenState extends State<CarBookingScreen> {
                   ],
                 ),
               ),
+
               SizedBox(height: 16),
 
               // Date & Time
@@ -196,7 +209,9 @@ class _CarBookingScreenState extends State<CarBookingScreen> {
               paymentTile(
                   2, "Stripe", "Connected", "", Icons.payment_outlined),
               SizedBox(height: 30),
-            YellowButton(buttonText: 'Confirm Booking', ontap: (){})
+            YellowButton(buttonText: 'Confirm Booking', ontap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>CancelOrderScreen()));
+            })
             ],
           ),
         ),
