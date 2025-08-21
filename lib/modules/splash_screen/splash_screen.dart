@@ -1,31 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taxi/utills/app_constant/app_color.dart';
 import 'package:taxi/utills/components/text_widget.dart';
-import 'package:taxi/utills/components/white-text.dart';
 
+import '../../controller/splash_controller.dart';
 import '../onboarding_Screen/onboarding-screen1.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashScreen extends StatelessWidget {
+  SplashScreen({super.key});
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-
-    // 3 second baad dusri screen par navigate hoga
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Onboardingscreen1()),
-      );
-    });
-  }
+  final SplashController splashController = Get.put(SplashController());
 
   @override
   Widget build(BuildContext context) {
@@ -54,5 +39,21 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+}
+
+
+
+
+class SplashController extends GetxController {
+  @override
+  void onInit() {
+    super.onInit();
+    _navigateToNext();
+  }
+
+  void _navigateToNext() async {
+    await Future.delayed(const Duration(seconds: 3));
+    Get.off(() =>Onboardingscreen1());
   }
 }

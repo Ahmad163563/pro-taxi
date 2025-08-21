@@ -17,6 +17,7 @@ import 'package:taxi/modules/drawer/drawer.dart';
 import 'package:taxi/modules/faviorite_screen%5D/favorite_screen.dart';
 import 'package:taxi/modules/google_location/google_location.dart';
 import 'package:taxi/modules/history_status/history_status.dart';
+import 'package:taxi/modules/onboarding_Screen/onboarding-screen1.dart';
 import 'package:taxi/modules/profile_screen/profile_screen.dart';
 import 'package:taxi/modules/referral.dart';
 import 'package:taxi/modules/splash_screen/splash_screen.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: themeController.theme,
-        home:SettingsScreen()//Referral()//ComplaintScreen()//HistoryScreen()//Addresss()//ProfileScreen()//GoogleLocation()//ChatScreen()//ConfirmRide()//PaymentSuccess()//DiscountScreen()//GoogleLocation()//WallletScreen()//FavoriteScreen()//PaymentSuccess()//ChatDemo()//ConfirmRide()//PaymentMethod()//SplashScreen()//CancelOrderScreen()//CarBookingScreen()//CarDetailsScreen()//AvailableTransport2()// TransportSelection()//GoogleLocation()//ForgetPasswordOtp()//EmailVerification()//ForgetPassword() //SignIn()//Registration2()//Registration()//PhoneVerification()//SignUp()   // SplashView(),
+        home: CarBookingScreen()//CarDetailsScreen()//GoogleLocation()//ForgetPasswordOtp()//EmailVerification()//ForgetPassword()//SignIn()//Registration2()//PhoneVerification()//SignUp()//SplashView()//Onboardingscreen1()//SplashScreen()
       ),
     );
   }

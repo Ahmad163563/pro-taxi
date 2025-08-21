@@ -1,59 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:taxi/modules/drawer/drawer.dart';
-import 'package:taxi/modules/faviorite_screen%5D/favorite_screen.dart';
-import 'package:taxi/modules/transport_selection/transport%20selection.dart';
-import 'package:taxi/modules/wallet_screens/walllet_Screen.dart';
-import 'package:taxi/utills/app_constant/app_color.dart';
-import 'package:taxi/utills/components/text_widget.dart';
 
+import '../../utills/components/text_widget.dart';
 import '../../utills/controller/theme_controller/theme.dart';
+import '../drawer/drawer.dart';
+import '../faviorite_screen]/favorite_screen.dart';
+import '../transport_selection/transport selection.dart';
+import '../wallet_screens/walllet_Screen.dart';
 
-class GoogleLocation extends StatefulWidget {
+class GoogleLocation extends StatelessWidget {
   const GoogleLocation({super.key});
 
   @override
-  State<GoogleLocation> createState() => _LState();
-}
-
-class _LState extends State<GoogleLocation> {
-  int _currentIndex = 0;
-
-  final List<Widget> _screens = [
-    Center(child: Text(" Home Screen")),
-    Center(child: FavoriteScreen()),
-    Center(child: WallletScreen()),
-    Center(child: Text(" Profile")),
-    Center(child: Text(" offer")),
-  ];
-  String selectedOption = "Transport";
-
-  @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final ThemeController themeController = Get.find();
+    final controller = Get.put(GoogleLocationController()); // Inject Controller
+    final themeController = Get.find<ThemeController>();
+
     return Scaffold(
-      extendBodyBehindAppBar: true, // 👈 important
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent, // 👈 transparent appbar
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        // title: GestureDetector(
-        //   onTap: () {},
-        //   child: Container(
-        //     height: 25,
-        //     width: 30,
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(2),
-        //       color: Color(0xfff8c20d),
-        //     ),
-        //     child: Icon(
-        //       Icons.menu,
-        //       color: AppColors.blackColor,
-        //     ),
-        //   ),
-        // ),
         actions: [
           Row(
             children: [
@@ -64,17 +33,12 @@ class _LState extends State<GoogleLocation> {
                   width: 30,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2),
-                    color: Color(0xfff8c20d),
+                    color: const Color(0xfff8c20d),
                   ),
-                  child: Icon(
-                    Icons.search,
-                    color: AppColors.blackColor,
-                  ),
+                  child: const Icon(Icons.search, color: Colors.black),
                 ),
               ),
-              SizedBox(
-                width: 8,
-              ),
+              const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {},
                 child: Container(
@@ -82,211 +46,184 @@ class _LState extends State<GoogleLocation> {
                   width: 30,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2),
-                    color: Color(0xfff8c20d),
+                    color: const Color(0xfff8c20d),
                   ),
-                  child: Icon(
-                    Icons.notifications,
-                    color: AppColors.blackColor,
-                  ),
+                  child: const Icon(Icons.notifications, color: Colors.black),
                 ),
               ),
-              Obx(() =>
-                  IconButton(
-                      onPressed: () {
-                        themeController.toggleTheme();
-                      },
-                      icon: Icon(
-                        themeController.isDark.value == true
-                            ? Icons.light_mode_outlined
-                            : Icons.dark_mode_outlined,
-                      )))
+              Obx(() => IconButton(
+                onPressed: () => themeController.toggleTheme(),
+                icon: Icon(themeController.isDark.value
+                    ? Icons.light_mode_outlined
+                    : Icons.dark_mode_outlined),
+              ))
             ],
           )
         ],
       ),
       drawer: const ProfileDrawer(),
-      body: IndexedStack(
-        index: _currentIndex,
+
+      // 🔹 IndexedStack ko reactive banate hain
+      body: Obx(() => IndexedStack(
+        index: controller.currentIndex.value,
         children: [
-          // Screen 1 (Home with background + chips)
-          Stack(
-            children: [
-              // 🔹 Full screen background image
-              Positioned.fill(
-                child: Image.asset(
-                  "assets/location.jpg", // apni image ka path
-                  fit: BoxFit.cover,
-                ),
-              ),
-
-              // 🔹 Overlay with gradient
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black.withOpacity(0.6),
-                        Colors.transparent
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                    ),
-                  ),
-                ),
-              ),
-
-              // 🔹 Text and container on top
-              Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        const SizedBox(width: 12),
-                        GestureDetector(
-                          onTap: (){},
-                          child: Container(
-                            height: 40,
-                            width: 90,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: const Color(0xfff8c20d),
-                            ),
-                            child: const Center(child: Text("Rental")),
-                          ),
-                        ),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.black54,
-                              borderRadius: BorderRadius.circular(2),
-                            ),
-                            child: const Icon(Icons.my_location,
-                                color: Colors.white),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-
-                    // 🔹 Main container with search + selectable chips
-                    Container(
-                      height: 150,
-                      width: 420,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Theme
-                            .of(context)
-                            .brightness == Brightness.dark
-                            ? Colors.black54
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 6,
-                            offset: const Offset(2, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          // 🔹 Search bar
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                              color: Theme
-                                  .of(context)
-                                  .brightness ==
-                                  Brightness.dark
-                                  ? Colors.black54
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.grey.shade300),
-                            ),
-                            child: Row(
-                              children: [
-                                IconButton(onPressed:() => openAddressBottomSheet(context), icon: Icon(Icons.search,color: Colors.grey,)),
-                                const SizedBox(width: 8),
-                                const Expanded(
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      hintText: "Where would you go?",
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
-                                const Icon(Icons.favorite_border,
-                                    color: Colors.grey),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 15),
-
-                          // 🔹 Selectable Row
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              _buildSelectableChip("Transport"),
-                              _buildSelectableChip("Delivery"),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-
+          _buildHomeScreen(controller, context),
           Center(child: FavoriteScreen()),
-
-          // Screen 3
-          Center(child: WallletScreen()),
-
-          // Screen 4
-          Center(child: Text("👤 Profile")),
+          const Center(child: WallletScreen()),
+          const Center(child: Text("👤 Profile")),
+          const Center(child: Text("Offer")),
         ],
-      ),
+      )),
+
       // 🔹 Bottom Navigation
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+      bottomNavigationBar: Obx(() => BottomNavigationBar(
+        currentIndex: controller.currentIndex.value,
+        onTap: controller.changeIndex,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.amber,
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: "Favorites",),
+              icon: Icon(Icons.favorite), label: "Favorites"),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_balance_wallet), label: "Wallet"),
           BottomNavigationBarItem(
               icon: Icon(Icons.local_offer), label: 'Offer'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: "Profile"),
         ],
-      ),
+      )),
     );
   }
 
-  Widget _buildSelectableChip(String label) {
-    final isSelected = selectedOption == label;
+  // 🔹 Home Screen widget
+  Widget _buildHomeScreen(GoogleLocationController controller, BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Image.asset("assets/location.jpg", fit: BoxFit.cover),
+        ),
+        Positioned.fill(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.black.withOpacity(0.6), Colors.transparent],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+              ),
+            ),
+          ),
+        ),
+        Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  const SizedBox(width: 12),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 40,
+                      width: 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: const Color(0xfff8c20d),
+                      ),
+                      child: const Center(child: Text("Rental")),
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                      child: const Icon(Icons.my_location, color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+
+              // 🔹 Search & Chips Container
+              Container(
+                height: 150,
+                width: 420,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.black54
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 6,
+                      offset: const Offset(2, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    // 🔹 Search bar
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black54
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.grey.shade300),
+                      ),
+                      child: Row(
+                        children: [
+                          IconButton(
+                              onPressed: () => openAddressBottomSheet(context, controller),
+                              icon: const Icon(Icons.search, color: Colors.grey)),
+                          const SizedBox(width: 8),
+                          const Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: "Where would you go?",
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                          const Icon(Icons.favorite_border, color: Colors.grey),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+
+                    // 🔹 Chips Row (Reactive)
+                    Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildSelectableChip("Transport", controller),
+                        _buildSelectableChip("Delivery", controller),
+                      ],
+                    )),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSelectableChip(String label, GoogleLocationController controller) {
+    final isSelected = controller.selectedOption.value == label;
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedOption = label;
-        });
-      },
+      onTap: () => controller.changeOption(label),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
@@ -310,45 +247,37 @@ class _LState extends State<GoogleLocation> {
 
 
 
-void openAddressBottomSheet(BuildContext context) {
-  final nameController = TextEditingController();
-  final addressController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-
+void openAddressBottomSheet(BuildContext context, GoogleLocationController controller) {
   showModalBottomSheet(
     context: context,
-    isScrollControlled: true, // keyboard ke liye
-    backgroundColor: Colors.transparent, // rounded corners dikhane ke liye
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
     builder: (ctx) {
       return DraggableScrollableSheet(
-        initialChildSize: 0.7,
-        minChildSize: 0.5,
-        maxChildSize: 0.95,
-        expand: false,
-        builder: (context, scrollController) {
-          return Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-            ),
-            child: SafeArea(
-              top: false,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  // keyboard overlap handle
-                  bottom: MediaQuery
-                      .of(context)
-                      .viewInsets
-                      .bottom + 12,
-                  top: 12,
-                ),
-                child: Form(
-                  key: formKey,
-                  child: ListView(
-                    controller: scrollController,
-                    children: [
+          initialChildSize: 0.7,
+          minChildSize: 0.5,
+          maxChildSize: 0.95,
+          expand: false,
+          builder: (context, scrollController) {
+            return Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              ),
+              child: SafeArea(
+                top: false,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    bottom: MediaQuery.of(context).viewInsets.bottom + 12,
+                    top: 12,
+                  ),
+                  child: Form(
+                      key: controller.formKey,
+                      child: ListView(
+                          controller: scrollController,
+                          children: [
                       // --- Top handle (optional) ---
                       Center(
                         child: Container(
@@ -383,7 +312,7 @@ void openAddressBottomSheet(BuildContext context) {
                   // --- TextFormField #1 ---
                   const SizedBox(height: 12),
                   TextFormField(
-                    controller: nameController,
+                    controller: controller.nameController,
                     textInputAction: TextInputAction.next,
                     decoration: const InputDecoration(
                       labelText: 'Form',
@@ -400,7 +329,7 @@ void openAddressBottomSheet(BuildContext context) {
                   // --- TextFormField #2 ---
                   const SizedBox(height: 12),
                   TextFormField(
-                    controller: addressController,
+                    controller: controller.addressController,
                     maxLines: 1,
                     decoration: const InputDecoration(
                       hintText: 'To',
@@ -515,4 +444,40 @@ void openAddressBottomSheet(BuildContext context) {
       );
     },
   );
+}
+
+
+
+
+
+class GoogleLocationController extends GetxController {
+  // 🔹 Bottom navigation index
+  var currentIndex = 0.obs;
+
+  // 🔹 Selected Chip Option
+  var selectedOption = "Transport".obs;
+
+  // 🔹 TextControllers for BottomSheet
+  final nameController = TextEditingController();
+  final addressController = TextEditingController();
+
+  // 🔹 Form Key
+  final formKey = GlobalKey<FormState>();
+
+  // 🔹 Function: change bottom navigation index
+  void changeIndex(int index) {
+    currentIndex.value = index;
+  }
+
+  // 🔹 Function: change selected chip
+  void changeOption(String label) {
+    selectedOption.value = label;
+  }
+
+  @override
+  void onClose() {
+    nameController.dispose();
+    addressController.dispose();
+    super.onClose();
+  }
 }

@@ -22,21 +22,21 @@ class _CarListScreenState extends State<AvailableTransport2> {
       "details": "Automatic | 3 seats | Octane",
       "distance": "800m (5 mins away)",
       "image":
-          "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800"
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800"
     },
     {
       "name": "Mustang Shelby GT",
       "details": "Automatic | 3 seats | Octane",
       "distance": "900m (5 mins away)",
       "image":
-          "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800"
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800"
     },
     {
       "name": "BMW i8",
       "details": "Automatic | 3 seats | Octane",
       "distance": "850m (5 mins away)",
       "image":
-          "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=800"
+      "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=800"
     },
   ];
 
@@ -45,12 +45,12 @@ class _CarListScreenState extends State<AvailableTransport2> {
     final ThemeController themeController = Get.find();
     return Scaffold(
       backgroundColor:Theme.of(context).brightness == Brightness.dark
-        ? Colors.black
-        : Colors.white,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).brightness == Brightness.dark
           ? Colors.black
           : Colors.white,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black
+            : Colors.white,
         title: CustomText(
           label: 'Back',
           size: TextSize.small,
@@ -78,17 +78,17 @@ class _CarListScreenState extends State<AvailableTransport2> {
           const SizedBox(height: 16),
 
           // --- TOP HEADING ---
-           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: CustomText(label: 'Available cars for ride', size: TextSize.large, weight: FontWeight.w600, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,)
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: CustomText(label: 'Available cars for ride', size: TextSize.large, weight: FontWeight.w600, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,)
           ),
-           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-            child: CustomText(label: '18 cars found', size: TextSize.small, weight: FontWeight.w300, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,)
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+              child: CustomText(label: '18 cars found', size: TextSize.small, weight: FontWeight.w300, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,)
           ),
 
           const SizedBox(height: 10),
@@ -101,7 +101,7 @@ class _CarListScreenState extends State<AvailableTransport2> {
               itemBuilder: (context, index) {
                 final isExpanded = expandedIndex == index;
                 final selected =
-                    selectedOptions[index]; // Book later / Ride Now
+                selectedOptions[index]; // Book later / Ride Now
 
                 return Container(
                   margin: const EdgeInsets.only(bottom: 16),
@@ -156,7 +156,7 @@ class _CarListScreenState extends State<AvailableTransport2> {
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               border:
-                                  Border.all(color: Colors.orange, width: 1.5),
+                              Border.all(color: Colors.orange, width: 1.5),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Center(
@@ -182,7 +182,7 @@ class _CarListScreenState extends State<AvailableTransport2> {
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 8, vertical: 12),
                                   padding:
-                                      const EdgeInsets.symmetric(vertical: 12),
+                                  const EdgeInsets.symmetric(vertical: 12),
                                   decoration: BoxDecoration(
                                     color: selected == "Book later"
                                         ? Colors.orange
@@ -215,7 +215,7 @@ class _CarListScreenState extends State<AvailableTransport2> {
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 8, vertical: 12),
                                   padding:
-                                      const EdgeInsets.symmetric(vertical: 12),
+                                  const EdgeInsets.symmetric(vertical: 12),
                                   decoration: BoxDecoration(
                                     color: selected == "Ride Now"
                                         ? Colors.orange
@@ -224,9 +224,9 @@ class _CarListScreenState extends State<AvailableTransport2> {
                                   ),
                                   child: Center(
                                     child: GestureDetector(
-                                    onTap:(){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>CarDetailsScreen()));
-                                    },
+                                      onTap:(){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> CarDetailsScreen()));
+                                      },
                                       child: Text(
                                         "Ride Now",
                                         style: TextStyle(

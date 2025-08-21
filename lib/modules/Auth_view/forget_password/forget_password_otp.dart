@@ -1,37 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taxi/modules/google_location/google_location.dart';
 import 'package:taxi/utills/app_constant/app_color.dart';
 import 'package:taxi/utills/components/yellow_button.dart';
-
 import '../../../utills/components/text_widget.dart';
 import '../../../utills/controller/theme_controller/theme.dart';
+import 'forget_password_otp_controller.dart';
 
-class ForgetPasswordOtp extends StatefulWidget {
-  const ForgetPasswordOtp({super.key});
+class ForgetPasswordOtp extends StatelessWidget {
+  ForgetPasswordOtp({super.key});
 
-  @override
-  State<ForgetPasswordOtp> createState() => _SignupView3State();
-}
-
-class _SignupView3State extends State<ForgetPasswordOtp> {
-  final List<FocusNode> _focusNodes = List.generate(5, (_) => FocusNode());
-  final List<TextEditingController> _controllers =
-  List.generate(5, (_) => TextEditingController());
-
-  @override
-  void dispose() {
-    for (var node in _focusNodes) {
-      node.dispose();
-    }
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
+  final ForgetPasswordOtpController controller =
+  Get.put(ForgetPasswordOtpController());
 
   Widget buildOTPField(int index, double height, double width) {
     return Container(
@@ -44,24 +26,17 @@ class _SignupView3State extends State<ForgetPasswordOtp> {
         border: Border.all(),
       ),
       child: TextFormField(
-        controller: _controllers[index],
-        focusNode: _focusNodes[index],
+        controller: controller.otpControllers[index],
+        focusNode: controller.focusNodes[index],
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
         maxLength: 1,
         style: GoogleFonts.poppins(fontSize: height * 0.03),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: InputBorder.none,
           counterText: '',
         ),
-        onChanged: (value) {
-          if (value.isNotEmpty && index < 4) {
-            FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
-          }
-          if (value.isEmpty && index > 0) {
-            FocusScope.of(context).requestFocus(_focusNodes[index - 1]);
-          }
-        },
+        onChanged: (value) => controller.onOtpChanged(value, index),
       ),
     );
   }
@@ -109,13 +84,9 @@ class _SignupView3State extends State<ForgetPasswordOtp> {
                     size: TextSize.extralarge,
                     weight: FontWeight.w600,
                     fontType: GoogleFonts.poppins,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black,
+                    color: isDark ? Colors.white : Colors.black,
                   )),
-              SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               CustomText(
                 label: 'Code has been sent to ***** ****70',
                 size: TextSize.small,
@@ -127,11 +98,9 @@ class _SignupView3State extends State<ForgetPasswordOtp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(
-                    5, (index) => buildOTPField(index, height, width)),
+                    5, (index) => buildOTPField(index, height, width,),),
               ),
-              SizedBox(
-                height: 25,
-              ),
+              SizedBox(height: 25),
               RichText(
                   text: TextSpan(
                       style: TextStyle(
@@ -148,17 +117,75 @@ class _SignupView3State extends State<ForgetPasswordOtp> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
+                              // Resend OTP API call
+                              Get.snackbar("OTP", "Resend OTP requested");
                             },
                         ),
                       ])),
-              SizedBox(height: 250,),
-              YellowButton(buttonText: 'Verify', ontap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>GoogleLocation()));
-              })
+              SizedBox(height: 250),
+              YellowButton(
+                  buttonText: 'Verify',
+                  ontap: () {
+                    controller.verifyOtp();
+                    if (controller.otpCode.value.length == 5) {
+                      Get.to(() => GoogleLocation());
+                    }
+                  })
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+
+
+
+
+
+class ForgetPasswordOtpController extends GetxController {
+  // List of TextEditingControllers for OTP
+  final List<TextEditingController> otpControllers =
+  List.generate(5, (_) => TextEditingController());
+
+  // List of FocusNodes for OTP
+  final List<FocusNode> focusNodes = List.generate(5, (_) => FocusNode());
+
+  // Reactive OTP string
+  var otpCode = "".obs;
+
+  // Update OTP value on change
+  void onOtpChanged(String value, int index) {
+    if (value.isNotEmpty && index < otpControllers.length - 1) {
+      FocusScope.of(Get.context!).requestFocus(focusNodes[index + 1]);
+    }
+    if (value.isEmpty && index > 0) {
+      FocusScope.of(Get.context!).requestFocus(focusNodes[index - 1]);
+    }
+
+    // Join all values into one OTP string
+    otpCode.value = otpControllers.map((c) => c.text).join();
+  }
+
+  // OTP verify function (API call ya validation ke liye use ho skta hai)
+  void verifyOtp() {
+    if (otpCode.value.length == 5) {
+      Get.snackbar("OTP", "Entered OTP is ${otpCode.value}");
+      // API call or navigation
+    } else {
+      Get.snackbar("Error", "Please enter complete OTP");
+    }
+  }
+
+  @override
+  void onClose() {
+    for (var controller in otpControllers) {
+      controller.dispose();
+    }
+    for (var node in focusNodes) {
+      node.dispose();
+    }
+    super.onClose();
   }
 }

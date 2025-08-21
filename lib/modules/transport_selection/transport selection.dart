@@ -54,7 +54,7 @@ class _TransportSelectionScreenState extends State<TransportSelection> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 20),
-           Text(
+          Text(
             "Select your transport",
             style: TextStyle(
               color: Theme.of(context).brightness == Brightness.dark

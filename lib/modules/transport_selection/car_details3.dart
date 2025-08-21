@@ -1,50 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taxi/modules/transport_selection/car_booking.dart';
 
 import '../../utills/controller/theme_controller/theme.dart';
 
-class CarDetailsScreen extends StatefulWidget {
-  const CarDetailsScreen({super.key});
 
-  @override
-  State<CarDetailsScreen> createState() => _CarDetailsScreenState();
-}
+class CarDetailsScreen extends StatelessWidget {
+  CarDetailsScreen({super.key});
 
-class _CarDetailsScreenState extends State<CarDetailsScreen> {
-  String selectedOption = "Ride Now";
+  final CarDetailsController carDetailsController =
+  Get.put(CarDetailsController());
 
   @override
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.find();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Back',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w100,
+          ).copyWith(
             color: Theme.of(context).brightness == Brightness.dark
                 ? Colors.grey
                 : Colors.black,
           ),
         ),
         actions: [
-          Obx(() => IconButton(
-              onPressed: () {
-                themeController.toggleTheme();
-              },
+          Obx(
+                () => IconButton(
+              onPressed: () => themeController.toggleTheme(),
               icon: Icon(
-                themeController.isDark.value == true
+                themeController.isDark.value
                     ? Icons.light_mode_outlined
                     : Icons.dark_mode_outlined,
-              )))
+              ),
+            ),
+          )
         ],
         backgroundColor: Theme.of(context).brightness == Brightness.dark
-          ? Colors.black
-          : Colors.white,
+            ? Colors.black
+            : Colors.white,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -73,8 +72,8 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
 
             // Car Image
             Center(
-              child: Image.network(
-                "assets/mustang.png", // Replace with your image
+              child: Image.asset(
+                "assets/mustang.png", // Local image use karen
                 height: 180,
               ),
             ),
@@ -93,10 +92,12 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildSpecBox(Icons.flash_on, "Max power", "450hp"),
-                _buildSpecBox(Icons.local_gas_station, "Fuel", "Petrol"),
-                _buildSpecBox(Icons.speed, "Top speed", "250km/h"),
-                _buildSpecBox(Icons.social_distance, "Distance", "500km"),
+                _buildSpecBox(context, Icons.flash_on, "Max power", "450hp"),
+                _buildSpecBox(
+                    context, Icons.local_gas_station, "Fuel", "Petrol"),
+                _buildSpecBox(context, Icons.speed, "Top speed", "250km/h"),
+                _buildSpecBox(
+                    context, Icons.social_distance, "Distance", "500km"),
               ],
             ),
             const SizedBox(height: 20),
@@ -111,77 +112,80 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
             ),
             const SizedBox(height: 12),
 
-            _buildFeatureBox("Model", "GT5000"),
-            _buildFeatureBox("Capacity", "4 Seats"),
-            _buildFeatureBox("Color", "Red"),
-            _buildFeatureBox("Fuel type", "Petrol"),
-            _buildFeatureBox("Gear type", "Automatic"),
+            _buildFeatureBox(context, "Model", "GT5000"),
+            _buildFeatureBox(context, "Capacity", "4 Seats"),
+            _buildFeatureBox(context, "Color", "Red"),
+            _buildFeatureBox(context, "Fuel type", "Petrol"),
+            _buildFeatureBox(context, "Gear type", "Automatic"),
 
             const SizedBox(height: 30),
 
             // Selectable Buttons
-            Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CarBookingScreen()));// setState(() {
-                      //   selectedOption = "Ride Now";
-                      // });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: selectedOption == "Ride Now"
-                            ? Colors.orange
-                            : Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Ride Now",
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: selectedOption == "Ride Now"
-                              ? Colors.white
-                              : Colors.black,
+            Obx(
+                  () => Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        carDetailsController.selectOption("Ride Now");
+                        Get.to(() =>CarBookingScreen());
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        decoration: BoxDecoration(
+                          color: carDetailsController.selectedOption.value ==
+                              "Ride Now"
+                              ? Colors.orange
+                              : Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Ride Now",
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: carDetailsController.selectedOption.value ==
+                                "Ride Now"
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedOption = "Book Later";
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: selectedOption == "Book Later"
-                            ? Colors.orange
-                            : Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Book Later",
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: selectedOption == "Book Later"
-                              ? Colors.white
-                              : Colors.black,
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        carDetailsController.selectOption("Book Later");
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        decoration: BoxDecoration(
+                          color: carDetailsController.selectedOption.value ==
+                              "Book Later"
+                              ? Colors.orange
+                              : Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Book Later",
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: carDetailsController.selectedOption.value ==
+                                "Book Later"
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -189,64 +193,93 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
     );
   }
 
-  Widget _buildSpecBox(IconData icon, String title, String value) {
+  Widget _buildSpecBox(
+      BuildContext context, IconData icon, String title, String value) {
     return Container(
       width: 80,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark
-            ? Colors.black
-            : Colors.white,
-        borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Color(0xfff8c20d))
-      ),
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xfff8c20d))),
       child: Column(
         children: [
           Icon(icon, size: 28, color: Colors.orange),
           const SizedBox(height: 6),
-          Text(title,
-              style: GoogleFonts.poppins(fontSize: 12, color: Theme.of(context).brightness == Brightness.dark
+          Text(
+            title,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
-                  : Colors.black,)),
-          Text(value,
-              style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,)),
+                  : Colors.black,
+            ),
+          ),
+          Text(
+            value,
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildFeatureBox(String title, String value) {
+  Widget _buildFeatureBox(BuildContext context, String title, String value) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark
-            ? Colors.black
-            : Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Color(0xfff8c20d))
-      ),
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xfff8c20d))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title,
-              style: GoogleFonts.poppins(fontSize: 14, color: Theme.of(context).brightness == Brightness.dark
+          Text(
+            title,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
-                  : Colors.black,)),
-          Text(value,
-              style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,)),
+                  : Colors.black,
+            ),
+          ),
+          Text(
+            value,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
+          ),
         ],
       ),
     );
+  }
+}
+
+
+
+
+
+
+class CarDetailsController extends GetxController {
+  // Selected Option: "Ride Now" / "Book Later"
+  var selectedOption = "Ride Now".obs;
+
+  void selectOption(String option) {
+    selectedOption.value = option;
   }
 }

@@ -24,12 +24,12 @@ class _CarBookingScreenState extends State<CarBookingScreen> {
     final ThemeController themeController = Get.find();
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.dark
-        ? Colors.black
-        : Colors.white,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).brightness == Brightness.dark
           ? Colors.black
           : Colors.white,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black
+            : Colors.white,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10,top: 18),
           child: CustomText(label: 'Back', size: TextSize.small, weight: FontWeight.w400, fontType:   GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
@@ -64,10 +64,10 @@ class _CarBookingScreenState extends State<CarBookingScreen> {
                   Icon(Icons.location_on, color: Colors.red),
                   SizedBox(width: 8),
                   Expanded(
-                    child: CustomText(label: 'Current Location\n '
-                        '2972 santhemier Rd. santa', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.grey
-                        : Colors.black,)
+                      child: CustomText(label: 'Current Location\n '
+                          '2972 santhemier Rd. santa', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey
+                          : Colors.black,)
                   ),
                 ],
               ),
@@ -79,10 +79,10 @@ class _CarBookingScreenState extends State<CarBookingScreen> {
                   Icon(Icons.location_on, color: Colors.orange),
                   SizedBox(width: 8),
                   Expanded(
-                    child: CustomText(label: 'Office\n '
-                        '1901 thoringe cir', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.grey
-                        : Colors.black,)
+                      child: CustomText(label: 'Office\n '
+                          '1901 thoringe cir', size: TextSize.small, weight: FontWeight.w400, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey
+                          : Colors.black,)
                   ),
                   CustomText(label: '1.8Km', size: TextSize.minismall, weight: FontWeight.w100, fontType: GoogleFonts.poppins,color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.grey
@@ -203,15 +203,15 @@ class _CarBookingScreenState extends State<CarBookingScreen> {
               SizedBox(height: 12),
 
               paymentTile(0, "Visa", "**** **** **** 8970", "Exp: 12/25",
-                  Icons.credit_card,),
+                Icons.credit_card,),
               paymentTile(1, "Mastercard", "**** **** **** 5623", "Exp: 10/24",
                   Icons.credit_card),
               paymentTile(
                   2, "Stripe", "Connected", "", Icons.payment_outlined),
               SizedBox(height: 30),
-            YellowButton(buttonText: 'Confirm Booking', ontap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>CancelOrderScreen()));
-            })
+              YellowButton(buttonText: 'Confirm Booking', ontap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>CancelOrderScreen()));
+              })
             ],
           ),
         ),
